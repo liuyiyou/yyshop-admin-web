@@ -16,4 +16,4 @@ export const setDocumentTitle = function (title) {
   }
 }
 
-export const domTitle = '商品中心'
+export const domTitle = 'YY Mall'

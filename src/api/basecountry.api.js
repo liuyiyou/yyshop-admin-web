@@ -1,17 +1,19 @@
 import { axios, buildPaginationQueryOpts } from '@/utils/request'
-class BrandApi {
+class BaseCountryApi {
   constructor() {
-    this._url = '/api/brand'
+    this._url = '/api/baseCountry'
   }
   get url() {
     return this._url
   }
-
   creat(data) {
     return axios.post(`${this.url}`, data)
   }
   update(data) {
     return axios.put(`${this.url}`, data)
+  }
+  modify(data) {
+    return axios.put(`${this.url}/modify`, data)
   }
   delete(id) {
     return axios.delete(`${this.url}/${encodeURIComponent(id)}`)
@@ -23,5 +25,9 @@ class BrandApi {
   list(pageable) {
     return axios.get(`${this.url}/list?${buildPaginationQueryOpts(pageable)}`)
   }
+
+  advancedSearch(whereCause, pageable) {
+    return axios.get(`${this.url}/adv/${encodeURIComponent(whereCause)}?${buildPaginationQueryOpts(pageable)}`)
+  }
 }
-export default new BrandApi()
+export default new BaseCountryApi()

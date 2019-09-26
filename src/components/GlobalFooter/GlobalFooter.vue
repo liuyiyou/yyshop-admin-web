@@ -1,13 +1,14 @@
 <template>
   <div class="footer">
     <div class="links">
-      <a href="http://yanglaoban.com/" target="_blank">官网</a>
-      <a href="https://m.yanglaoban.com" target="_blank">洋老板商城</a>
-      <a href="http://192.168.0.200:8381" target="_blank">旧版</a>
+      <a href="http://liuyiyou.cn" target="_blank">博客</a>
+      <a href="http://www.yiyou.site/#/" target="_blank">刘易友的学习笔记</a>
+      <a href="http://www.yiyou.fun/" target="_blank">博客</a>
     </div>
     <div class="copyright">
       Copyright
-      <a-icon type="copyright" /> 2019 <span>洋老板商城</span>
+      <a-icon type="copyright" />2019
+      <span>liuyiyou.cn</span>
     </div>
   </div>
 </template>
@@ -15,7 +16,7 @@
 <script>
 export default {
   name: 'GlobalFooter',
-  data () {
+  data() {
     return {}
   }
 }

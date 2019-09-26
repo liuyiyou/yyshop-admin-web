@@ -5,7 +5,7 @@
         <a-row :gutter="48">
           <a-col :md="8" :sm="24">
             <a-form-item label="角色ID">
-              <a-input placeholder="请输入"/>
+              <a-input placeholder="请输入" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
@@ -27,23 +27,20 @@
       </a-form>
     </div>
 
-    <s-table
-      size="default"
-      :columns="columns"
-      :data="loadData"
-    >
+    <s-table size="default" :columns="columns" :data="loadData">
       <template v-slot:status="text">
         <a-tag :color="text ? 'blue' : 'red' ">{{ text | statusFilter }}</a-tag>
       </template>
 
-      <template
-        v-slot:expandedRowRender="record"
-      >
+      <template v-slot:expandedRowRender="record">
         <div style="margin: 0">
-          <a-row
-            :gutter="24"
-            :style="{ marginBottom: '12px' }">
-            <a-col :span="12" v-for="(role, index) in record.authorities" :key="index" :style="{ marginBottom: '12px' }">
+          <a-row :gutter="24" :style="{ marginBottom: '12px' }">
+            <a-col
+              :span="12"
+              v-for="(role, index) in record.authorities"
+              :key="index"
+              :style="{ marginBottom: '12px' }"
+            >
               <a-col :lg="4" :md="24">
                 <span>{{ role }}：</span>
               </a-col>
@@ -54,20 +51,17 @@
             </a-col>
           </a-row>
         </div>
-
       </template>
-      <!-- 自 2.6.0 起被废弃 新推荐的语法请查阅 https://cn.vuejs.org/v2/guide/components-slots.html#%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD -->
-      <!-- <span slot="action" slot-scope="text, record"> -->
-      <!-- // eslint-disable-next-line -->
       <template v-slot:action="text, record">
         <a @click="onEdit(record)">编辑</a>
         <a-divider type="vertical" />
         <a-dropdown>
           <a class="ant-dropdown-link">
-            更多 <a-icon type="down" />
+            更多
+            <a-icon type="down" />
           </a>
           <template v-slot:overlay>
-            <a-menu >
+            <a-menu>
               <a-menu-item>
                 <a @click="onView(record)">详情</a>
               </a-menu-item>
@@ -80,15 +74,8 @@
       </template>
     </s-table>
 
-    <a-modal
-      title="操作"
-      style="top: 20px;"
-      :width="800"
-      v-model="visible"
-      @ok="onOK"
-    >
+    <a-modal title="操作" style="top: 20px;" :width="800" v-model="visible" @ok="onOK">
       <a-form :form="form" @submit="onSubmit">
-
         <a-form-item
           v-for="(field, index) in formFields"
           :key="index"
@@ -108,32 +95,22 @@
               field.dataIndex,
               {rules: [{ required: !!field.required, message: field.title }]}
             ]"
-            :disabled="field.disabled">
-          </component>
+            :disabled="field.disabled"
+          ></component>
         </a-form-item>
 
         <a-divider />
 
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="拥有权限"
-          hasFeedback
-        >
+        <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="拥有权限" hasFeedback>
           <a-row :gutter="16" v-for="(permission, index) in formData.permissions" :key="index">
-            <a-col :span="4">
-              {{ permission.permissionName }}：
-            </a-col>
+            <a-col :span="4">{{ permission.permissionName }}：</a-col>
             <a-col :span="20">
-              <a-checkbox-group :options="permission.actionsOptions"/>
+              <a-checkbox-group :options="permission.actionsOptions" />
             </a-col>
           </a-row>
-
         </a-form-item>
-
       </a-form>
     </a-modal>
-
   </a-card>
 </template>
 <script src="./js/UserList.js"></script>

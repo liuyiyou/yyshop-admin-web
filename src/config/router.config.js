@@ -17,122 +17,102 @@ export const asyncRouterMap = [
         name: 'user',
         component: PageView,
         redirect: '/user/list',
-        meta: { title: '用户管理', icon: 'table', permission: [ 'table' ] },
+        meta: { title: '系统管理', icon: 'setting', permission: ['table'] },
         children: [
           {
             path: '/user/list',
             name: 'userList',
             hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
             component: () => import('@/views/user/UserList'),
-            meta: { title: '用户列表', keepAlive: true, permission: [ 'table' ] }
-          }
-
-        ]
-      },
-      // 商品管理
-      {
-        path: '/goods',
-        name: 'goods',
-        redirect: '/goods/GoodsList',
-        component: PageView,
-        meta: { title: '商品管理', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
-        children: [
-          {
-            path: '/goods/GoodsList',
-            name: 'GoodsList',
-            component: () => import('@/views/goods/GoodsList'),
-            meta: { title: '商品列表', keepAlive: true, permission: [ 'dashboard' ] }
+            meta: { title: '用户列表', keepAlive: true, permission: ['table'] }
           },
           {
-            path: '/goods/AddGoods',
-            name: 'AddGoods',
-            component: () => import('@/views/goods/AddGoods'),
-            meta: { title: '添加商品', keepAlive: true, permission: [ 'dashboard' ] }
+            path: '/role/list',
+            name: 'roleList',
+            hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+            component: () => import('@/views/user/UserList'),
+            meta: { title: '角色列表', keepAlive: true, permission: ['table'] }
           }
+
         ]
       },
-
-      // 类目管理
+      //基础信息管理
       {
-        path: '/category',
-        redirect: '/category/CategoryList',
+        path: '/base',
+        name: 'base',
+        redirect: '/base/baseList',
         component: PageView,
-        meta: { title: '类目管理', icon: 'form', permission: [ 'form' ] },
-        children: [
-          {
-            path: '/category/CategoryList',
-            name: 'CategoryList',
-            component: () => import('@/views/category/CategoryList'),
-            meta: { title: '商品类目', keepAlive: true }
-          }
-        ]
-      },
-
-      // 品牌管理
-      {
-        path: '/brand',
-        name: 'brand',
-        component: PageView,
-        redirect: '/brand/BrandList',
-        meta: { title: '品牌管理', icon: 'table', permission: [ 'table' ] },
+        meta: { title: '基础管理', keepAlive: true, icon: bxAnaalyse, permission: ['table'] },
         children: [
           {
             path: '/brand/BrandList',
             name: 'BrandList',
             hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
             component: () => import('@/views/brand/BrandList'),
-            meta: { title: '品牌列表', keepAlive: true, permission: [ 'table' ] }
-          }
-        ]
-      },
-
-      // 属性管理
-      {
-        path: '/props',
-        name: 'props',
-        component: PageView,
-        redirect: '/props/PropertyList',
-        meta: { title: '属性管理', icon: 'profile', permission: [ 'profile' ] },
-        children: [
+            meta: { title: '品牌管理', keepAlive: true, permission: ['table'] }
+          },
+          {
+            path: '/category/CategoryList',
+            name: 'CategoryList',
+            component: () => import('@/views/category/CategoryList'),
+            meta: { title: '类目管理', keepAlive: true }
+          },
           {
             path: '/props/PropertyList',
             name: 'PropertyList',
             component: () => import('@/views/property/PropertyList'),
-            meta: { title: '属性列表', permission: [ 'profile' ] }
-          }
-        ]
-      },
-
-      // 费率管理
-      {
-        path: '/tariff',
-        name: 'tariff',
-        component: PageView,
-        redirect: '/tariff/TariffList',
-        meta: { title: '费率管理', icon: 'check-circle-o', permission: [ 'result' ] },
-        children: [
+            meta: { title: '属性列表', permission: ['profile'] }
+          },
+          {
+            path: '/country/BaseCountryList',
+            name: 'BaseCountryList',
+            component: () => import('@/views/country/BaseCountryList'),
+            meta: { title: '国家管理', permission: ['table'] }
+          },
           {
             path: '/tariff/TariffList',
             name: 'TariffList',
             component: () => import(/* webpackChunkName: "result" */ '@/views/tariff/TariffList'),
-            meta: { title: '费率列表', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
+            meta: { title: '费率列表', keepAlive: false, hiddenHeaderContent: true, permission: ['result'] }
           }
         ]
       },
 
-      // 供应商管理
+      // 商品管理
       {
-        path: '/supplier',
-        name: 'supplier',
+        path: '/goods',
+        name: 'goods',
+        redirect: '/goods/GoodsList',
         component: PageView,
-        redirect: '/supplier/SupplierList',
-        meta: { title: '供应商管理', icon: 'warning', permission: [ 'table' ] },
+        meta: { title: '商品管理', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] },
         children: [
           {
-            path: '/supplier/SupplierList',
-            name: 'SupplierList',
-            component: () => import('@/views/supplier/SupplierList'),
-            meta: { title: '供应商列表', permission: [ 'table' ] }
+            path: '/goods/GoodsList',
+            name: 'GoodsList',
+            component: () => import('@/views/goods/GoodsList'),
+            meta: { title: '商品列表', keepAlive: true, permission: ['dashboard'] }
+          },
+          {
+            path: '/goods/AddGoods',
+            name: 'AddGoods',
+            component: () => import('@/views/goods/AddGoods'),
+            meta: { title: '添加商品', keepAlive: true, permission: ['dashboard'] }
+          }
+        ]
+      },
+      // 订单管理
+      {
+        path: '/order',
+        name: 'order',
+        redirect: '/order/OrderList',
+        component: PageView,
+        meta: { title: '订单管理', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] },
+        children: [
+          {
+            path: '/order/OrderList',
+            name: 'OrderList',
+            component: () => import('@/views/order/OrderList'),
+            meta: { title: '订单列表', keepAlive: true, permission: ['dashboard'] }
           }
         ]
       }

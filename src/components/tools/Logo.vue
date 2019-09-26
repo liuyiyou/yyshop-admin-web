@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '商品中心',
+      default: 'YY Mall',
       required: false
     },
     showTitle: {
