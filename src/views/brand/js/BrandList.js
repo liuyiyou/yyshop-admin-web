@@ -6,7 +6,7 @@ export default {
   components: {
     STable
   },
-  data () {
+  data() {
     return {
       visible: false,
       labelCol: {
@@ -49,15 +49,15 @@ export default {
       columns: [
         {
           title: '编号',
-          dataIndex: 'id'
+          dataIndex: 'brandId'
         },
         {
           title: '品牌名称',
-          dataIndex: 'name'
+          dataIndex: 'brandNameCn'
         },
         {
           title: '品牌英文',
-          dataIndex: 'englishName'
+          dataIndex: 'brandNameEn'
         },
         {
           title: '别名',
@@ -65,7 +65,7 @@ export default {
         },
         {
           title: '所属国家',
-          dataIndex: 'countryName'
+          dataIndex: 'countryId'
         },
         {
           title: '图标',
@@ -99,7 +99,7 @@ export default {
         {
           title: '所属国家',
           dataIndex: 'countryName',
-          component:'ASelect'
+          component: 'ASelect'
         }
 
       ],
@@ -117,23 +117,23 @@ export default {
       selectedRows: []
     }
   },
-  created () {
+  created() {
 
   },
   filters: {
-    statusFilter (status) {
+    statusFilter(status) {
 
       return status ? '正常' : '禁用'
     }
 
   },
   methods: {
-    onCreate(){
+    onCreate() {
       this.formData = {}
       console.log(this.formData['id'])
       this.visible = true
     },
-    onEdit (record) {
+    onEdit(record) {
       console.log('handleEdit', record)
       record.createdDate = moment(record.createdDate)
       this.formData = Object.assign({}, record)
@@ -141,13 +141,13 @@ export default {
 
       this.visible = true
     },
-    onView (record) {
+    onView(record) {
       console.log('onView', record)
     },
-    onDelete (record) {
+    onDelete(record) {
       console.log('onDelete', record)
     },
-    onOK (e) {
+    onOK(e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         console.log('validateFields: ', err, values)
@@ -156,14 +156,14 @@ export default {
         }
       })
     },
-    onChange (selectedRowKeys, selectedRows) {
+    onChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced () {
+    toggleAdvanced() {
       this.advanced = !this.advanced
     },
-    onSubmit (e) {
+    onSubmit(e) {
       console.log(this.form, this.formData)
 
     }

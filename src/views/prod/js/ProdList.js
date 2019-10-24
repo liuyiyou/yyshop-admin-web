@@ -1,13 +1,14 @@
 import { STable } from '@/components'
-import orderService from './order.service'
+import prodService from './prod.service'
 import moment from 'moment'
 export default {
-  name: 'OrderList',
+  name: 'ProdList',
   components: {
     STable
   },
   data() {
     return {
+      description: '',
       visible: false,
       labelCol: {
         xs: { span: 24 },
@@ -19,39 +20,40 @@ export default {
       },
       form: this.$form.createForm(this),
       formData: {},
-
       // 高级搜索 展开/关闭
       advanced: false,
       // 查询参数
       queryParam: {},
       searchCodition: [
         {
+          title: 'ID',
+          dataIndex: 'id',
+
+          disabled: true
+        },
+        {
           title: '状态',
           dataIndex: 'activated',
           meta: {
             component: 'dropdown'
           },
+
           scopedSlots: { customRender: 'status' }
         }
       ],
       // 表头
       columns: [
         {
-          title: '订单编号',
-          dataIndex: 'orderId'
+          title: '编号',
+          dataIndex: 'prodId'
         },
         {
-          title: '下单时间',
-          dataIndex: 'createTime'
+          title: '产品名称',
+          dataIndex: 'prodName'
         },
         {
-          title: '订单金额',
-          dataIndex: 'totalPrice'
-        },
-        {
-          title: '订单状态',
-          dataIndex: 'status',
-          scopedSlots: { customRender: 'status' }
+          title: '品牌',
+          dataIndex: 'brandName'
         },
         {
           title: '操作',
@@ -62,13 +64,16 @@ export default {
       ],
 
       formFields: [
+        {
+          title: '编号',
+          dataIndex: 'id'
+        },
+
       ],
       // 加载数据方法 必须为 Promise 对象
 
       loadData: async parameter => {
-        console.log('loadData parameter ', parameter)
-        const res = await orderService.list(parameter)
-        console.log('brandList res', res)
+        const res = await prodService.list(parameter)
         return res.result
 
       },
@@ -82,6 +87,7 @@ export default {
   },
   filters: {
     statusFilter(status) {
+
       return status ? '正常' : '禁用'
     }
 
@@ -102,14 +108,9 @@ export default {
     },
     onView(record) {
       console.log('onView', record)
-      this.$router.push({
-        path: `/order/OrderInfo`,
-        query: { id: record.orderId }
-      })
     },
     onDelete(record) {
       console.log('onDelete', record)
-
     },
     onOK(e) {
       e.preventDefault()
@@ -129,12 +130,7 @@ export default {
     },
     onSubmit(e) {
       console.log(this.form, this.formData)
-    },
-    onSearch(e) {
-      console.log(this.queryParam)
-      const res = orderService.list(queryParam)
-      console.log('orderList res', res)
-      return res.result
+
     }
   },
 
