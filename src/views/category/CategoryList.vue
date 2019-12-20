@@ -1,56 +1,59 @@
 <template>
   <a-card :bordered="false">
     <a-row :gutter="8">
-      <a-col :span="5">
-        <s-tree
-          :dataSource="orgTree"
-          :openKeys.sync="openKeys"
-          :search="true"
-          @click="handleClick"
-          @add="handleAdd"
-          @titleClick="handleTitleClick"></s-tree>
+      <a-col :span="8">
+        <a-row>
+          <a-col :xs="{ span: 16 }" :lg="{ span: 8 }">
+            <a-button type="default" icon="edit" @click="onEdit" style="margin-right:20px">编辑类目</a-button>
+          </a-col>
+          <a-col :xs="{ span: 16 }" :lg="{ span: 8 }">
+            <a-button type="default" icon="delete" @click="onDelete" style="margin-right:20px">删除类目</a-button>
+          </a-col>
+          <a-col :xs="{ span: 16 }" :lg="{ span: 8 }">
+            <a-button type="default" icon="plus" @click="onCreate" style="margin-right:20px">添加分类</a-button>
+          </a-col>
+        </a-row>
+        <category-tree ref="categoryTree" @complete="onSelectedKeys" />
       </a-col>
-      <a-col :span="19">
-        <s-table
-          ref="table"
-          size="default"
-          :columns="columns"
-          :data="loadData"
-          :alert="false"
-          :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        >
-          <span slot="action" slot-scope="text, record">
-            <template v-if="$auth('table.update')">
-              <a @click="handleEdit(record)">编辑</a>
-              <a-divider type="vertical" />
+      <a-col :span="16">
+        <a-row :gutter="19">
+          <a-col>
+            <a-button type="default" icon="plus" @click="onPropValue" style="float: right">关联属性</a-button>
+          </a-col>
+        </a-row>
+        <div style="border:1px solid #e4e4e4;padding:15px 38px; margin-top:28px">
+          <p>基础属性</p>
+          <a-table ref="table" size="default" :columns="baseColumns" :dataSource="baseList">
+            <template v-slot:action="text, record">
+              <a @click="onCancleBase(record)">取消关联</a>
             </template>
-            <a-dropdown>
-              <a class="ant-dropdown-link">
-                更多 <a-icon type="down" />
-              </a>
-              <a-menu slot="overlay">
-                <a-menu-item>
-                  <a href="javascript:;">详情</a>
-                </a-menu-item>
-                <a-menu-item v-if="$auth('table.disable')">
-                  <a href="javascript:;">禁用</a>
-                </a-menu-item>
-                <a-menu-item v-if="$auth('table.delete')">
-                  <a href="javascript:;">删除</a>
-                </a-menu-item>
-              </a-menu>
-            </a-dropdown>
-          </span>
-        </s-table>
+          </a-table>
+        </div>
+        <div style="border:1px solid #e4e4e4;padding:15px 38px; margin-top:18px">
+          <p>销售属性（商品规格）</p>
+          <a-table ref="table" size="default" :columns="saleColumns" :dataSource="saleList">
+            <template v-slot:action="text, record">
+              <a @click="onUnbound(record)">取消关联</a>
+            </template>
+          </a-table>
+        </div>
       </a-col>
     </a-row>
-
-    <org-modal ref="modal" @ok="handleSaveOk" @close="handleSaveClose" />
+    <creatCategoryModal
+      ref="creatCategoryModal"
+      @complete="onCreatCategoryOk"
+      :breadcrumbList="breadcrumbList"
+    />
+    <propValueModal
+      ref="propValueModal"
+      :breadcrumbList="breadcrumbList"
+      :selectedRowKeys="selectedRowKeys"
+    />
   </a-card>
 </template>
 
 <script src="./js/CategoryList.js"></script>
 
 <style lang="less">
-  @import url('./css/category-list.less');
+@import url('./css/category-list.less');
 </style>

@@ -65,6 +65,9 @@
       </a-form>
     </div>
     <s-table size="default" :columns="columns" :data="loadData">
+      <template v-slot:status="text, record">
+        <span>{{text}}</span>
+      </template>
       <template v-slot:action="text, record">
         <a @click="onEdit(record)">编辑</a>
         <a-divider type="vertical" />

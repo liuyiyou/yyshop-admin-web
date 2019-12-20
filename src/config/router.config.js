@@ -104,7 +104,7 @@ export const asyncRouterMap = [
         name: 'prod',
         redirect: '/prod/ProdList',
         component: PageView,
-        meta: { title: '商品管理', icon: 'bars', keepAlive: true, permission: ['prod'] },
+        meta: { title: '商品管理', icon: 'hdd', keepAlive: true, permission: ['prod'] },
         children: [
           {
             path: '/prod/ProdList',
@@ -120,7 +120,7 @@ export const asyncRouterMap = [
         name: 'order',
         redirect: '/order/OrderList',
         component: PageView,
-        meta: { title: '订单管理', icon: 'bars', keepAlive: true, permission: ['order'] },
+        meta: { title: '订单管理', icon: 'dollar', keepAlive: true, permission: ['order'] },
         children: [
           {
             path: '/order/OrderList',
@@ -143,7 +143,7 @@ export const asyncRouterMap = [
         name: 'member',
         redirect: '/member/MemberList',
         component: PageView,
-        meta: { title: '会员管理', icon: 'bars', keepAlive: true, permission: ['member'] },
+        meta: { title: '会员管理', icon: 'user', keepAlive: true, permission: ['member'] },
         children: [
           {
             path: '/member/MemberList',

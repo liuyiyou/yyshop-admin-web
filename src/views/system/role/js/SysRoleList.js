@@ -1,6 +1,50 @@
 import { STable } from '@/components'
 import sysRoleService from './sysRole.service'
 import moment from 'moment'
+
+const treeData = [
+    {
+        title: '权限树',
+        key: '0-0',
+        children: [
+            {
+                title: '系统管理',
+                key: '0-0-0',
+                children: [
+                    { title: '用户管理', key: '0-0-0-0' },
+                    { title: '角色管理', key: '0-0-0-1' },
+                    { title: '菜单管理', key: '0-0-0-2' }
+                ]
+            },
+            {
+                title: '订单管理',
+                key: '0-0-1',
+                children: [
+                    { title: '订单列表', key: '0-0-1-0' },
+                    { title: '退款列表', key: '0-0-1-1' },
+                    { title: '0-0-1-2', key: '0-0-1-2' }
+                ]
+            },
+            {
+                title: '0-0-2',
+                key: '0-0-2'
+            }
+        ]
+    },
+    {
+        title: '0-1',
+        key: '0-1',
+        children: [
+            { title: '0-1-0-0', key: '0-1-0-0' },
+            { title: '0-1-0-1', key: '0-1-0-1' },
+            { title: '0-1-0-2', key: '0-1-0-2' }
+        ]
+    },
+    {
+        title: '0-2',
+        key: '0-2'
+    }
+]
 export default {
     name: 'SysRoleList',
     components: {
@@ -80,11 +124,22 @@ export default {
             },
 
             selectedRowKeys: [],
-            selectedRows: []
+            selectedRows: [],
+            //下面是树结构
+            expandedKeys: ['0-0-0', '0-0-1'],
+            autoExpandParent: true,
+            checkedKeys: ['0-0-0'],
+            selectedKeys: [],
+            treeData
         }
     },
     created() {
 
+    },
+    watch: {
+        checkedKeys(val) {
+            console.log('onCheck', val)
+        }
     },
     filters: {
         statusFilter(status) {
@@ -132,6 +187,23 @@ export default {
         onSubmit(e) {
             console.log(this.form, this.formData)
 
+        }
+        ,
+        //树相关
+        onExpand(expandedKeys) {
+            console.log('onExpand', expandedKeys)
+            // if not set autoExpandParent to false, if children expanded, parent can not collapse.
+            // or, you can remove all expanded children keys.
+            this.expandedKeys = expandedKeys
+            this.autoExpandParent = false
+        },
+        onCheck(checkedKeys) {
+            console.log('onCheck', checkedKeys)
+            this.checkedKeys = checkedKeys
+        },
+        onSelect(selectedKeys, info) {
+            console.log('onSelect', info)
+            this.selectedKeys = selectedKeys
         }
     },
 

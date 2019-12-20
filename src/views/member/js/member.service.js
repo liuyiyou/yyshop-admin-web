@@ -19,8 +19,15 @@ class MemberService {
   async list(pageable) {
     return memberApi.list(pageable)
   }
+
+  async listAjax(paramer) {
+    return memberApi.getServiceList(paramer)
+  }
+
+
   async advancedSearch(whereClause, pageable) {
     return memberApi.advancedSearch(whereClause, pageable)
   }
+
 }
 export default new MemberService()

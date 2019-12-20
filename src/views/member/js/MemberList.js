@@ -1,5 +1,5 @@
 import { STable } from '@/components'
-import brandService from './member.service'
+import memberService from './member.service'
 import moment from 'moment'
 export default {
   name: 'MemberList',
@@ -9,7 +9,7 @@ export default {
   data() {
     return {
       description: '',
-      visible: false,
+      visible: true,
       labelCol: {
         xs: { span: 24 },
         sm: { span: 5 }
@@ -28,7 +28,6 @@ export default {
         {
           title: 'ID',
           dataIndex: 'id',
-
           disabled: true
         },
         {
@@ -37,7 +36,6 @@ export default {
           meta: {
             component: 'dropdown'
           },
-
           scopedSlots: { customRender: 'status' }
         }
       ],
@@ -50,6 +48,10 @@ export default {
         {
           title: '账号',
           dataIndex: 'account'
+        },
+        {
+          title: '真实姓名',
+          dataIndex: 'realName'
         },
         {
           title: '创建时间',
@@ -76,15 +78,15 @@ export default {
 
       ],
       // 加载数据方法 必须为 Promise 对象
-
       loadData: async parameter => {
         console.log('loadData parameter ', parameter)
-        const res = await brandService.list(parameter)
-        console.log('brandList res', res)
-        return res.result
+        console.log("reload parameter", Object.assign(parameter, this.queryParam));
+        // const res = await memberService.list(Object.assign(parameter, this.queryParam))
+        return memberService.list(Object.assign(parameter, this.queryParam)).then(res => {
+          return res.result;
+        })
 
       },
-
       selectedRowKeys: [],
       selectedRows: []
     }

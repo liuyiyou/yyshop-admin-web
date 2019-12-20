@@ -26,6 +26,14 @@ class MemberApi {
     return axios.get(`${this.url}/list?${buildPaginationQueryOpts(pageable)}`)
   }
 
+  getServiceList(parameter) {
+    return axios({
+      url: '/api/member/list',
+      method: 'post',
+      params: parameter
+    })
+  }
+
   advancedSearch(whereCause, pageable) {
     return axios.get(`${this.url}/adv/${encodeURIComponent(whereCause)}?${buildPaginationQueryOpts(pageable)}`)
   }

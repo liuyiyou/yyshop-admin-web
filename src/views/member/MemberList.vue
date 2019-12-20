@@ -5,24 +5,28 @@
         <a-card title="筛选查询">
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
-              <a-form-item label="会员名称">
-                <a-input placeholder="会员名称" />
+              <a-form-item label="手机号">
+                <a-input v-model="queryParam.account" placeholder="手机号" />
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
               <span class="table-page-search-submitButtons">
-                <a-button type="primary">查询</a-button>
+                <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+                <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
               </span>
             </a-col>
           </a-row>
         </a-card>
       </a-form>
     </div>
-    <s-table size="default" :columns="columns" :data="loadData">
+    <s-table size="default" ref="table" :columns="columns" :data="loadData">
       <template v-slot:action="text, record">
         <a @click="onView(record)">查看</a>
         <a-divider type="vertical" />
         <a @click="onDelete(record)">删除</a>
+      </template>
+      <template v-slot:gender="text, record">
+        <a-badge :gender="text | genderFilter" :text="text | genderFilter" />
       </template>
     </s-table>
 
@@ -37,7 +41,6 @@
           :required="!!field.required"
           hasFeedback
         >
-          <!-- <a-input :placeholder="field.title" v-model="formData[field.dataIndex]" :id="field.dataIndex" :disabled="field.disabled" /> -->
           <component
             v-model="formData[field.dataIndex]"
             :is="field.component ? field.component :'AInput'"

@@ -19,7 +19,6 @@ export default {
       },
       form: this.$form.createForm(this),
       formData: {},
-
       // 高级搜索 展开/关闭
       advanced: false,
       // 查询参数
@@ -38,11 +37,12 @@ export default {
       columns: [
         {
           title: '订单编号',
-          dataIndex: 'orderId'
+          dataIndex: 'orderId',
+          sorter: true
         },
         {
           title: '下单时间',
-          dataIndex: 'createTime'
+          dataIndex: 'createTime',
         },
         {
           title: '订单金额',
@@ -68,7 +68,7 @@ export default {
       loadData: async parameter => {
         console.log('loadData parameter ', parameter)
         const res = await orderService.list(parameter)
-        console.log('brandList res', res)
+        console.log('orderList res', res)
         return res.result
 
       },
