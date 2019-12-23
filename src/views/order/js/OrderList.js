@@ -1,12 +1,13 @@
 import { STable } from '@/components'
 import orderService from './order.service'
 import moment from 'moment'
+
 export default {
   name: 'OrderList',
   components: {
     STable
   },
-  data() {
+  data () {
     return {
       visible: false,
       labelCol: {
@@ -61,38 +62,34 @@ export default {
         }
       ],
 
-      formFields: [
-      ],
+      formFields: [],
       // 加载数据方法 必须为 Promise 对象
-
       loadData: async parameter => {
         console.log('loadData parameter ', parameter)
         const res = await orderService.list(parameter)
         console.log('orderList res', res)
         return res.result
-
       },
-
       selectedRowKeys: [],
       selectedRows: []
     }
   },
-  created() {
+  created () {
 
   },
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       return status ? '正常' : '禁用'
     }
 
   },
   methods: {
-    onCreate() {
+    onCreate () {
       this.formData = {}
       console.log(this.formData['id'])
       this.visible = true
     },
-    onEdit(record) {
+    onEdit (record) {
       console.log('handleEdit', record)
       record.createdDate = moment(record.createdDate)
       this.formData = Object.assign({}, record)
@@ -100,18 +97,17 @@ export default {
 
       this.visible = true
     },
-    onView(record) {
+    onView (record) {
       console.log('onView', record)
       this.$router.push({
-        path: `/order/OrderInfo`,
+        path: '/order/OrderInfo',
         query: { id: record.orderId }
       })
     },
-    onDelete(record) {
+    onDelete (record) {
       console.log('onDelete', record)
-
     },
-    onOK(e) {
+    onOK (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         console.log('validateFields: ', err, values)
@@ -120,17 +116,17 @@ export default {
         }
       })
     },
-    onChange(selectedRowKeys, selectedRows) {
+    onChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced() {
+    toggleAdvanced () {
       this.advanced = !this.advanced
     },
-    onSubmit(e) {
+    onSubmit (e) {
       console.log(this.form, this.formData)
     },
-    onSearch(e) {
+    onSearch (e) {
       console.log(this.queryParam)
       const res = orderService.list(queryParam)
       console.log('orderList res', res)

@@ -1,8 +1,8 @@
 import { axios, buildPaginationQueryOpts } from '@/utils/request'
 
-class BrandApi {
+class UserDeliveryApi {
   constructor () {
-    this._url = '/api/brand'
+    this._url = '/api/userDelivery'
   }
 
   get url () {
@@ -17,6 +17,10 @@ class BrandApi {
     return axios.put(`${this.url}`, data)
   }
 
+  modify (data) {
+    return axios.put(`${this.url}/modify`, data)
+  }
+
   delete (id) {
     return axios.delete(`${this.url}/${encodeURIComponent(id)}`)
   }
@@ -28,6 +32,14 @@ class BrandApi {
   list (pageable) {
     return axios.get(`${this.url}/list?${buildPaginationQueryOpts(pageable)}`)
   }
+
+  listByUId (uid) {
+    return axios.get(`${this.url}/listByUId?uid=` + uid)
+  }
+
+  advancedSearch (whereCause, pageable) {
+    return axios.get(`${this.url}/adv/${encodeURIComponent(whereCause)}?${buildPaginationQueryOpts(pageable)}`)
+  }
 }
 
-export default new BrandApi()
+export default new UserDeliveryApi()

@@ -1,11 +1,11 @@
-import orderService from './order.service'
-import orderItemService from './orderItem.service'
 import { mixinDevice } from '@/utils/mixin'
 import DetailList from '@/components/tools/DetailList'
+import memberService from './member.service'
+import userDeliveryService from './userDelivery.service'
 
 const DetailListItem = DetailList.Item
 export default {
-  name: 'OrderInfo',
+  name: 'MemberInfo',
   components: {
     DetailList,
     DetailListItem
@@ -13,47 +13,46 @@ export default {
   mixins: [mixinDevice],
   data () {
     return {
-      order: {},
-      orderItems: [],
-      orderItemsColumns: [
+      member: {},
+      userDeliveries: [],
+      userDeliveriesColumns: [
         {
-          title: '商品编码',
-          dataIndex: 'skuId',
-          key: 'skuId'
+          title: '收货人',
+          dataIndex: 'name',
+          key: 'name'
         },
         {
-          title: '商品条码',
-          dataIndex: 'barcode',
-          key: 'barcode'
+          title: '收货人手机号',
+          dataIndex: 'tel',
+          key: 'tel'
         },
         {
-          title: '商品名称',
-          dataIndex: 'prodName',
-          key: 'prodName'
+          title: '身份证',
+          dataIndex: 'idno',
+          key: 'idno'
         },
         {
-          title: '单价',
-          dataIndex: 'unitPrice',
-          key: 'unitPrice'
-        },
-        {
-          title: '数量',
-          dataIndex: 'prodNum',
-          key: 'prodNum'
+          title: '地址',
+          dataIndex: 'address',
+          key: 'address'
+        }, {
+          title: '操作',
+          width: '150px',
+          dataIndex: 'action',
+          scopedSlots: { customRender: 'action' }
         }
       ]
-
     }
   },
   created () {
     const id = this.$route.query.id
-    orderService.find(id).then(response => {
+    memberService.find(id).then(response => {
       const data = response.result
-      this.order = data
+      this.member = data
     })
-    orderItemService.find(id).then(response => {
-      const data = response.result
-      this.orderItems = data
+    userDeliveryService.listByUId(id).then(reponse => {
+      const data = reponse.result
+      this.userDeliveries = data
     })
   },
   filters: {

@@ -1,15 +1,16 @@
 import { STable } from '@/components'
 import memberService from './member.service'
 import moment from 'moment'
+
 export default {
   name: 'MemberList',
   components: {
     STable
   },
-  data() {
+  data () {
     return {
       description: '',
-      visible: true,
+      visible: false,
       labelCol: {
         xs: { span: 24 },
         sm: { span: 5 }
@@ -20,6 +21,7 @@ export default {
       },
       form: this.$form.createForm(this),
       formData: {},
+      pagination: { showSizeChanger: true, showQuickJumper: true, current: 0, showTotal: total => `总共${total}条` },
       // 高级搜索 展开/关闭
       advanced: false,
       // 查询参数
@@ -74,31 +76,30 @@ export default {
         {
           title: '编号',
           dataIndex: 'id'
-        },
+        }
 
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: async parameter => {
         console.log('loadData parameter ', parameter)
-        console.log("reload parameter", Object.assign(parameter, this.queryParam));
+        console.log('reload parameter', Object.assign(parameter, this.queryParam))
         // const res = await memberService.list(Object.assign(parameter, this.queryParam))
         return memberService.list(Object.assign(parameter, this.queryParam)).then(res => {
-          return res.result;
+          return res.result
         })
-
       },
       selectedRowKeys: [],
       selectedRows: []
     }
   },
-  created() {
+  created () {
 
   },
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       return status ? '正常' : '禁用'
     },
-    genderFilter(gender) {
+    genderFilter (gender) {
       if (gender == '1') {
         return '男'
       } else if (gender == '2') {
@@ -110,12 +111,12 @@ export default {
 
   },
   methods: {
-    onCreate() {
+    onCreate () {
       this.formData = {}
       console.log(this.formData['id'])
       this.visible = true
     },
-    onEdit(record) {
+    onEdit (record) {
       console.log('handleEdit', record)
       record.createdDate = moment(record.createdDate)
       this.formData = Object.assign({}, record)
@@ -123,13 +124,16 @@ export default {
 
       this.visible = true
     },
-    onView(record) {
-      console.log('onView', record)
+    onView (record) {
+      this.$router.push({
+        path: '/member/MemberInfo',
+        query: { id: record.id }
+      })
     },
-    onDelete(record) {
+    onDelete (record) {
       console.log('onDelete', record)
     },
-    onOK(e) {
+    onOK (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         console.log('validateFields: ', err, values)
@@ -138,17 +142,16 @@ export default {
         }
       })
     },
-    onChange(selectedRowKeys, selectedRows) {
+    onChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced() {
+    toggleAdvanced () {
       this.advanced = !this.advanced
     },
-    onSubmit(e) {
+    onSubmit (e) {
       console.log(this.form, this.formData)
-
     }
-  },
+  }
 
 }

@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <a-card :bordered="true">
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
@@ -6,7 +6,7 @@
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
               <a-form-item label="手机号">
-                <a-input v-model="queryParam.account" placeholder="手机号" />
+                <a-input v-model="queryParam.account" placeholder="手机号"/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
@@ -22,11 +22,11 @@
     <s-table size="default" ref="table" :columns="columns" :data="loadData">
       <template v-slot:action="text, record">
         <a @click="onView(record)">查看</a>
-        <a-divider type="vertical" />
+        <a-divider type="vertical"/>
         <a @click="onDelete(record)">删除</a>
       </template>
       <template v-slot:gender="text, record">
-        <a-badge :gender="text | genderFilter" :text="text | genderFilter" />
+        <a-badge :gender="text | genderFilter" :text="text | genderFilter"/>
       </template>
     </s-table>
 

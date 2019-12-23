@@ -150,6 +150,12 @@ export const asyncRouterMap = [
             name: 'MemberList',
             component: () => import('@/views/member/MemberList'),
             meta: { title: '会员列表', keepAlive: true, permission: ['member'] }
+          },{
+            path: '/member/MemberInfo',
+            name: 'MemberInfo',
+            hidden: true,
+            component: () => import('@/views/member/MemberInfo'),
+            meta: { title: '会员详情', hidden: true, keepAlive: true, }
           }
         ]
       }
